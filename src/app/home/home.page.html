@@ -1,20 +1,45 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Skoodle
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [forceOverscroll]="false">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">SKoodle</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-row>
+    <ion-col *ngFor="let color of colors" [style.background]="color" 
+      class="color-block" tappable (click)="selectColor(color)"></ion-col>
+  </ion-row>
+  <ion-radio-group [(ngModel)]="selectedColor">
+  <ion-row>
+    <ion-col *ngFor="let color of colors" class="ion-text-center">
+      <ion-radio [value]="color"></ion-radio>
+    </ion-col>
+  </ion-row>
+</ion-radio-group>
+
+<ion-range min="2" max="20" color="primary" [(ngModel)]="lineWidth">
+  <ion-icon size="small" slot="start" name="brush"></ion-icon>
+  <ion-icon slot="end" name="brush"></ion-icon>
+</ion-range>
+
+<canvas #imageCanvas (mousedown)="startDrawing($event)" (touchstart)="startDrawing($event)"
+    (touchmove)="moved($event)" (mousemove)="moved($event)" (mouseup)="endDrawing()" (touchend)="endDrawing()"></canvas>
+ 
+  <ion-button expand="full" (click)="setBackground()">
+    <ion-icon slot="start" name="image"></ion-icon>
+    Set Background Image
+  </ion-button>
+ 
+  <ion-button expand="full" (click)="exportCanvasImage()">
+    <ion-icon slot="start" name="download"></ion-icon>
+    Export Canvas Image
+  </ion-button>
 </ion-content>
