@@ -1,0 +1,7 @@
+{
+  "name": "Skoodle",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
