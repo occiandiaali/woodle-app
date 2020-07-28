@@ -1,17 +1,36 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Skoodle
+      Woodle
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" [forceOverscroll]="false">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">SKoodle</ion-title>
+    <ion-toolbar color="primary">
+      <ion-title size="large">Woodle</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-fab horizontal="end" vertical="top" slot="fixed" edge>
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list>
+      <ion-fab-button color="dark" (click)="setBackground()">
+        <ion-icon name="image-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="warning">
+        <ion-icon name="musical-notes-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="danger" (click)="clearBackground()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <canvas #imageCanvas (mousedown)="startDrawing($event)" (touchstart)="startDrawing($event)"
+    (touchmove)="moved($event)" (mousemove)="moved($event)" (mouseup)="endDrawing()" (touchend)="endDrawing()"></canvas>
 
   <ion-row>
     <ion-col *ngFor="let color of colors" [style.background]="color" 
@@ -30,16 +49,4 @@
   <ion-icon slot="end" name="brush"></ion-icon>
 </ion-range>
 
-<canvas #imageCanvas (mousedown)="startDrawing($event)" (touchstart)="startDrawing($event)"
-    (touchmove)="moved($event)" (mousemove)="moved($event)" (mouseup)="endDrawing()" (touchend)="endDrawing()"></canvas>
- 
-  <ion-button expand="full" (click)="setBackground()">
-    <ion-icon slot="start" name="image"></ion-icon>
-    Set Background Image
-  </ion-button>
- 
-  <ion-button expand="full" (click)="exportCanvasImage()">
-    <ion-icon slot="start" name="download"></ion-icon>
-    Export Canvas Image
-  </ion-button>
 </ion-content>
